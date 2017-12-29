@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: registry-service-1
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: registry1.bootifulmicropizza.com
+    http:
+      paths:
+      - backend:
+          serviceName: registry-service-1
+          servicePort: 8761
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: registry-service-2
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: registry2.bootifulmicropizza.com
+    http:
+      paths:
+      - backend:
+          serviceName: registry-service-2
+          servicePort: 8762

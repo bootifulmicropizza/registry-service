@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: registry-service-1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: registry-service-1
+    spec:
+      containers:
+      - name: registry-service-1
+        image: iancollington/bootifulmicropizza_registry-service
+        imagePullPolicy: Always
+        env:
+          - name: BOOTIFUL_MICRO_PIZZA_ENV
+            value: prod
+          - name: BUILD_DATE
+            value: BUILD_DATE_PLACEHOLDER
+          - name: EUREKA_HOST_NAME
+            value: registry-service-1
+          - name: EUREKA_HOST_PORT
+            value: "8761"
+        resources:
+          requests:
+            cpu: "0.25"
+            memory: 1024Mi
+          limits:
+            cpu: "1"
+            memory: 1280Mi
+        ports:
+        - containerPort: 8761
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8761
+          initialDelaySeconds: 120
+          timeoutSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8761
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
