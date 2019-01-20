@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - apt-get update && sudo apt-get install -y apt-transport-https
+      - curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+      - echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+      - apt-get update -y
+      - apt-get install -y kubectl
+      - aws eks update-kubeconfig --name bootifulmicropizza --region eu-west-1
+      - curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/aws-iam-authenticator
+      - chmod +x aws-iam-authenticator
+      - mv ./aws-iam-authenticator /usr/local/bin
+  build:
+    commands:
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - kubectl set image -f src/main/k8s/k8s-deployment-1.yaml $MODULE_NAME=$IMAGE_REPO/$MODULE_NAME:$COMMIT_HASH --local -o yaml | sed "s/BUILD_DATE_PLACEHOLDER/$(date)/g" - | kubectl apply --force -f -
+      - kubectl set image -f src/main/k8s/k8s-deployment-2.yaml $MODULE_NAME=$IMAGE_REPO/$MODULE_NAME:$COMMIT_HASH --local -o yaml | sed "s/BUILD_DATE_PLACEHOLDER/$(date)/g" - | kubectl apply --force -f -
+      - kubectl apply -f src/main/k8s/k8s-service.yaml
+      - kubectl apply -f src/main/k8s/k8s-ingress.yaml
