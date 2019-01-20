@@ -22,6 +22,10 @@ spec:
             value: registry-service-1
           - name: EUREKA_HOST_PORT
             value: "8761"
+          - name: EUREKA_PEER_HOST
+            value: registy-service-2
+          - name: EUREKA_PEER_PORT
+            value: "8762"
         resources:
           requests:
             cpu: "0.25"
