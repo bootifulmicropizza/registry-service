@@ -15,7 +15,7 @@ phases:
   build:
     commands:
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - kubectl set image -f src/main/k8s/k8s-deployment-1.yaml $MODULE_NAME=$IMAGE_REPO/$MODULE_NAME:$COMMIT_HASH --local -o yaml | sed "s/BUILD_DATE_PLACEHOLDER/$(date)/g" - | kubectl apply --force -f -
-      - kubectl set image -f src/main/k8s/k8s-deployment-2.yaml $MODULE_NAME=$IMAGE_REPO/$MODULE_NAME:$COMMIT_HASH --local -o yaml | sed "s/BUILD_DATE_PLACEHOLDER/$(date)/g" - | kubectl apply --force -f -
+      - kubectl set image -f src/main/k8s/k8s-deployment-1.yaml $MODULE_NAME-1=$IMAGE_REPO/$MODULE_NAME:$COMMIT_HASH --local -o yaml | sed "s/BUILD_DATE_PLACEHOLDER/$(date)/g" - | kubectl apply --force -f -
+      - kubectl set image -f src/main/k8s/k8s-deployment-2.yaml $MODULE_NAME-2=$IMAGE_REPO/$MODULE_NAME:$COMMIT_HASH --local -o yaml | sed "s/BUILD_DATE_PLACEHOLDER/$(date)/g" - | kubectl apply --force -f -
       - kubectl apply -f src/main/k8s/k8s-service.yaml
       - kubectl apply -f src/main/k8s/k8s-ingress.yaml
