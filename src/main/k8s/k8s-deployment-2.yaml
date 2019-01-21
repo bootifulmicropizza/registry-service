@@ -38,13 +38,13 @@ spec:
           protocol: TCP
         livenessProbe:
           httpGet:
-            path: /health
+            path: /actuator/health
             port: 8762
           initialDelaySeconds: 120
           timeoutSeconds: 30
         readinessProbe:
           httpGet:
-            path: /health
+            path: /actuator/health
             port: 8762
           initialDelaySeconds: 30
           timeoutSeconds: 5
