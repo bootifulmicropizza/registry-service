@@ -1,4 +1,4 @@
-FROM openjdk:8u131-jdk
+FROM openjdk:8u191-jre-alpine3.8
 
 EXPOSE 8761
 EXPOSE 8762
