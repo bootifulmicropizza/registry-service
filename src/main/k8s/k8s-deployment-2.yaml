@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: registry-service-2
+  namespace: pizza
 spec:
   replicas: 1
   template:

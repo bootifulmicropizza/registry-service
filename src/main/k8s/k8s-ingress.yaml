@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: registry-service-1
-  namespace: default
+  namespace: pizza
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
@@ -18,7 +18,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: registry-service-2
-  namespace: default
+  namespace: pizza
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
