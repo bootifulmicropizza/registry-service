@@ -50,9 +50,12 @@
 
         <!-- Other dependencies -->
         <dependency>
-            <groupId>at.twinformatics</groupId>
-            <artifactId>eureka-consul-adapter</artifactId>
-            <version>${eureka-consul-adapter.version}</version>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
 
         <!-- Test scoped -->
@@ -86,7 +89,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 
     <reporting>
         <plugins>
